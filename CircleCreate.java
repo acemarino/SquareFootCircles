@@ -15,7 +15,7 @@ public class CircleCreate extends JFrame {
 
     public CircleCreate(ArrayList<Double>data) {
 
-        setSize(new Dimension(320, 320));
+        setSize(new Dimension(640,640));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
@@ -24,9 +24,11 @@ public class CircleCreate extends JFrame {
             public void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g;
                 for(int i= 0; i< data.size();i++){
-                    Shape circle = new Ellipse2D.Double(data.get(i), data.get(i), data.get(i), data.get(i));
-                    g2.setPaint(Color.blue);
-                    g2.draw(circle);
+                    double num=data.get(i) *2;
+
+                        Shape circle = new Ellipse2D.Double(num,num,num,num);
+                        g2.setPaint(Color.blue);
+                        g2.draw(circle);
                 }
                 
             }
