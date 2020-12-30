@@ -1,25 +1,32 @@
-public class Building {
+public class Building implements Comparable{
     
-    double SquareFeet;
+    int SquareFeet;
     int radius;
 
-    public Building(double SqFt, int r){
+    public Building(int SqFt, int r){
         SquareFeet=SqFt;
         radius=r;
     }
 
-    void setSquareFeet(double S){
+    void setSquareFeet(int S){
         SquareFeet = S;
     }
     void setRadius(int R){
         radius=R;
     }
 
-    double getSquareFeet(){
+    int getSquareFeet(){
         return SquareFeet;
     }
 
     int getRadius(){
         return radius;
+    }
+
+    @Override
+    public int compareTo(Object compareBuilding){
+        int value =((Building)compareBuilding).getSquareFeet();
+        return this.SquareFeet-value;
+        
     }
 }
