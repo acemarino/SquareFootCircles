@@ -3,21 +3,22 @@ import java.lang.Math;
 public class Main{
     public static void main(String[] args){
 
-        ArrayList<Double>SquareFeet= new ArrayList<Double>();
-        ArrayList<Double>CircleRadii= new ArrayList<Double>();
+        ArrayList<Building>Buidlings= new ArrayList<Building>();
+       
+        Buidlings.add(new Building(1000.00,10));
+        Buidlings.add(new Building(2000.00,10));
+        Buidlings.add(new Building(10000.00,10));
+        Buidlings.add(new Building(5000.00,10));
+        Buidlings.add(new Building(15000.00,10));
+    
+        for(int i =0; i <Buidlings.size();i++){
+            double SqRt= Math.sqrt(Buidlings.get(i).getSquareFeet());
+            
+            Buidlings.get(i).setRadius((int)SqRt);
         
-        SquareFeet.add(1000.00);
-        SquareFeet.add(2000.00);
-        SquareFeet.add(10000.00);
-        SquareFeet.add(5000.00);
-        SquareFeet.add(15000.00);
-
-        for(int i =0; i <SquareFeet.size();i++){
-            double SqRt= Math.sqrt(SquareFeet.get(i));
-           CircleRadii.add(SqRt);
         }
         
-       new CircleCreate(CircleRadii);
+       new CircleCreate(Buidlings);
 
     }
 }

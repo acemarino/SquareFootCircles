@@ -13,9 +13,9 @@ public class CircleCreate extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    public CircleCreate(ArrayList<Double>data) {
+    public CircleCreate(ArrayList<Building>data) {
 
-        setSize(new Dimension(640,640));
+        setSize(new Dimension(100,100));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
@@ -24,7 +24,7 @@ public class CircleCreate extends JFrame {
             public void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g;
                 for(int i= 0; i< data.size();i++){
-                    double num=data.get(i) *2;
+                    double num=data.get(i).getRadius();
 
                         Shape circle = new Ellipse2D.Double(num,num,num,num);
                         g2.setPaint(Color.blue);
