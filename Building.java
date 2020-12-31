@@ -2,10 +2,12 @@ public class Building implements Comparable{
     
     int SquareFeet;
     int radius;
+    String key;
 
-    public Building(int SqFt, int r){
+    public Building(int SqFt){
         SquareFeet=SqFt;
-        radius=r;
+        radius=10;
+        key=null;
     }
 
     void setSquareFeet(int S){
@@ -14,6 +16,9 @@ public class Building implements Comparable{
     void setRadius(int R){
         radius=R;
     }
+    void setKey(String K){
+        key=K;
+    }
 
     int getSquareFeet(){
         return SquareFeet;
@@ -21,6 +26,9 @@ public class Building implements Comparable{
 
     int getRadius(){
         return radius;
+    }
+    String getKey(){
+        return key;
     }
 
     @Override
