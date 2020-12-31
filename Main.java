@@ -32,7 +32,7 @@ public class Main{
 
             
             for(int i = 1; i <Buidlings.size();i++){
-                //accruate radius for each squarefootage amount
+                //accurate radius for each squarefootage amount
                 double SqRt= Math.sqrt(Buidlings.get(i).getSquareFeet());
 
                 //adjust accurate radius based off of the lowest value ex 10 px = 100sqft
