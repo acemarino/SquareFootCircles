@@ -24,6 +24,59 @@ public class Main{
         }
         
     }
+
+    public static void genRadialVals(ArrayList<Building>Data, int minP, int maxP, int midNum){
+        //seting lowest value and finding ratio 
+        Data.get(0).setRadius(minP); 
+        double ratio= Math.sqrt(Data.get(0).getSquareFeet())/ Data.get(0).getRadius();
+        int numSteps= (maxP)/Data.size();
+        if(numSteps < 2){
+            numSteps = 2;
+        }
+
+        //step values
+        for(int j=minP; j <= maxP; j+=numSteps){
+        
+            
+            for(int i = 1; i <Data.size();i++){
+                //accruate radius for each squarefootage amount
+                double SqRt= Math.sqrt(Data.get(i).getSquareFeet());
+
+                //adjust accurate radius based off of the lowest value ex 10 px = 100sqft
+                double newRadius= SqRt / ratio;
+
+                //for finding correct midNum
+                if(((j+numSteps)-j)%2==0){
+                    midNum=((j+(numSteps/2)));
+                }
+                else{
+                    midNum=((j+(numSteps/2))+1);
+                }
+            
+                if( (int)newRadius > midNum){
+                
+                    
+                    //if radius exceeds maxpixel value
+                    if((int)newRadius > maxP){
+                        //System.out.println("Square Feet: "+Buidlings.get(i).getSquareFeet());
+                        //System.out.println("NewRadius: "+newRadius);
+                        int difference=(int)newRadius-maxP;
+                    reCalc(Data,minP,difference, maxP);
+                    }
+                    Data.get(i).setRadius(j+numSteps);
+                }
+            } 
+
+            //resets lowest square footage amount to minPixel Value
+            if(j== (maxP - numSteps)  && Data.get(0).getRadius()>minP || Data.get(0).getRadius()<minP){
+
+                Data.get(0).setRadius(minP);
+            } 
+
+}
+
+
+    }
     
     public static void main(String[] args){
 
@@ -43,63 +96,16 @@ public class Main{
 
         int minPixelValue=10;
         int maxPixelValue=48;
-        int midNum;
+        int midNum=0;
         
-        //seeting lowest value and finding ratio 
-        Buidlings.get(0).setRadius(minPixelValue); 
-        double ratio= Math.sqrt(Buidlings.get(0).getSquareFeet())/ Buidlings.get(0).getRadius();
-        int numSteps= (maxPixelValue)/Buidlings.size();
-        if(numSteps < 2){
-            numSteps = 2;
-        }
-    
-        //step values
-        for(int j=minPixelValue; j <= maxPixelValue; j+=numSteps){
-           
-            
-            for(int i = 1; i <Buidlings.size();i++){
-                //accruate radius for each squarefootage amount
-                double SqRt= Math.sqrt(Buidlings.get(i).getSquareFeet());
-
-                //adjust accurate radius based off of the lowest value ex 10 px = 100sqft
-                double newRadius= SqRt / ratio;
-
-                //for finding correct midNum
-                if(((j+numSteps)-j)%2==0){
-                    midNum=((j+(numSteps/2)));
-                }
-                else{
-                    midNum=((j+(numSteps/2))+1);
-                }
-              
-                if( (int)newRadius > midNum){
-                   
-                    
-                    //if radius exceeds maxpixel value
-                    if((int)newRadius > maxPixelValue){
-                        //System.out.println("Square Feet: "+Buidlings.get(i).getSquareFeet());
-                        //System.out.println("NewRadius: "+newRadius);
-                        int difference=(int)newRadius-maxPixelValue;
-                       reCalc(Buidlings,minPixelValue,difference, maxPixelValue);
-                    }
-                    Buidlings.get(i).setRadius(j+numSteps);
-                }
-            } 
-
-            //resets lowest square footage amount to minPixel Value
-            if(j== (maxPixelValue- numSteps)  && Buidlings.get(0).getRadius()>minPixelValue || Buidlings.get(0).getRadius()<minPixelValue){
-
-                Buidlings.get(0).setRadius(minPixelValue);
-            } 
+        genRadialVals(Buidlings,minPixelValue, maxPixelValue, midNum);
         
-        }
-
         for(int i = 0; i <Buidlings.size();i++){
             System.out.println("Square Feet: "+Buidlings.get(i).getSquareFeet());
             System.out.println("Radius: "+Buidlings.get(i).getRadius());
     }   
 
-      // new CircleCreate(Buidlings);
+     //new CircleCreate(Buidlings);
 
     }
    
