@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.*;
+import java.util.Random;
 import java.lang.Math;
 public class Main{
 
-    //for when max pixel value is exceeded
+    //for when max pixel value is exceeded (reccursion)
     public static void reCalc(ArrayList<Building>Data,int minp, int d, int maxp){
         double NewLowRad =Data.get(0).getRadius()-d;
         System.out.println("Square Feet: "+Data.get(0).getSquareFeet());
@@ -25,10 +26,9 @@ public class Main{
         
     }
 
-    public static void genRadialVals(ArrayList<Building>Data, int minP, int maxP, int midNum){
-        //seting lowest value and finding ratio 
-        Data.get(0).setRadius(minP); 
-        double ratio= Math.sqrt(Data.get(0).getSquareFeet())/ Data.get(0).getRadius();
+    //generates final radial values
+    public static void genRadialVals(ArrayList<Building>Data, int minP, int maxP, int midNum,double r){
+        
         int numSteps= (maxP)/Data.size();
         if(numSteps < 2){
             numSteps = 2;
@@ -43,7 +43,7 @@ public class Main{
                 double SqRt= Math.sqrt(Data.get(i).getSquareFeet());
 
                 //adjust accurate radius based off of the lowest value ex 10 px = 100sqft
-                double newRadius= SqRt / ratio;
+                double newRadius= SqRt / r;
 
                 //for finding correct midNum
                 if(((j+numSteps)-j)%2==0){
@@ -53,16 +53,7 @@ public class Main{
                     midNum=((j+(numSteps/2))+1);
                 }
             
-                if( (int)newRadius > midNum){
-                
-                    
-                    //if radius exceeds maxpixel value
-                    if((int)newRadius > maxP){
-                        //System.out.println("Square Feet: "+Buidlings.get(i).getSquareFeet());
-                        //System.out.println("NewRadius: "+newRadius);
-                        int difference=(int)newRadius-maxP;
-                    reCalc(Data,minP,difference, maxP);
-                    }
+                if( (int)newRadius >= midNum){
                     Data.get(i).setRadius(j+numSteps);
                 }
             } 
@@ -73,16 +64,39 @@ public class Main{
                 Data.get(0).setRadius(minP);
             } 
 
-}
-
-
+        }
     }
+
+    //for finding the ratio that will be used to generate radial values later
+    public static double genRatioValue(ArrayList<Building>Data, int minP, int maxP){
+        //seting lowest value and finding ratio 
+        Data.get(0).setRadius(minP); 
+        double ratio = Math.sqrt(Data.get(0).getSquareFeet())/minP;
+
+        double maxRadius =Math.sqrt(Data.get(Data.size()-1).getSquareFeet())/ratio;
+        if((int)maxRadius>maxP){
+            //double difference = maxRadius - maxP;
+            //ratio =Math.abs((minP-difference)/minP);
+            ratio=Math.sqrt(Data.get(Data.size()-1).getSquareFeet())/maxP;
+        }
+        return ratio;
+    }
+
+
+    
     
     public static void main(String[] args){
 
         ArrayList<Building>Buidlings= new ArrayList<Building>();
+        Random rand = new Random(); 
+        int randSqFt=0;
        
+        
         Buidlings.add(new Building(100));
+        Buidlings.add(new Building(400));
+        Buidlings.add(new Building(750));
+        Buidlings.add(new Building(1000));
+        Buidlings.add(new Building(1500));
         Buidlings.add(new Building(1500));
         Buidlings.add(new Building(2000));
         Buidlings.add(new Building(7600));
@@ -92,20 +106,30 @@ public class Main{
         Buidlings.add(new Building(6400));
         Buidlings.add(new Building(15000));
         Buidlings.add(new Building(20000));
+       
+        /*
+        for(int count=0; count<=1000;count++){
+            randSqFt=(int)(Math.random()*20000+10);
+            Buidlings.add(new Building(randSqFt));
+        }
+        */
         Collections.sort(Buidlings);
 
         int minPixelValue=10;
         int maxPixelValue=48;
         int midNum=0;
+
+        double ratio = genRatioValue(Buidlings, minPixelValue, maxPixelValue);
+        System.out.println("ratio: "+ratio);
         
-        genRadialVals(Buidlings,minPixelValue, maxPixelValue, midNum);
+        genRadialVals(Buidlings,minPixelValue, maxPixelValue, midNum, ratio);
         
         for(int i = 0; i <Buidlings.size();i++){
             System.out.println("Square Feet: "+Buidlings.get(i).getSquareFeet());
             System.out.println("Radius: "+Buidlings.get(i).getRadius());
     }   
 
-     //new CircleCreate(Buidlings);
+    //new CircleCreate(Buidlings);
 
     }
    
