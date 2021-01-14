@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.*;
-import java.util.Random;
 import java.lang.Math;
 public class Main{
 
@@ -27,7 +26,7 @@ public class Main{
     }
 
     //generates final radial values
-    public static void genRadialVals(ArrayList<Building>Data, int minP, int maxP, int midNum,double r){
+    public static void genRadialVals(ArrayList<Building>Data, int minP, int maxP, double midNum,double r){
         
         int numSteps= (maxP)/Data.size();
         if(numSteps < 2){
@@ -46,14 +45,12 @@ public class Main{
                 double newRadius= SqRt / r;
 
                 //for finding correct midNum
-                if(((j+numSteps)-j)%2==0){
-                    midNum=((j+(numSteps/2)));
-                }
-                else{
-                    midNum=((j+(numSteps/2))+1);
-                }
+                midNum=((j+((double)numSteps/2)));
+                
             
-                if( (int)newRadius >= midNum){
+                System.out.println("New Rad: "+ newRadius);
+                System.out.println("mid Num "+ midNum);
+                if( newRadius >= midNum){
                     Data.get(i).setRadius(j+numSteps);
                 }
             } 
@@ -88,7 +85,6 @@ public class Main{
     public static void main(String[] args){
 
         ArrayList<Building>Buidlings= new ArrayList<Building>();
-        Random rand = new Random(); 
         int randSqFt=0;
        
         
@@ -117,7 +113,7 @@ public class Main{
 
         int minPixelValue=10;
         int maxPixelValue=48;
-        int midNum=0;
+        double midNum=0.00;
 
         double ratio = genRatioValue(Buidlings, minPixelValue, maxPixelValue);
         System.out.println("ratio: "+ratio);
