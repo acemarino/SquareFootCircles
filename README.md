@@ -1,5 +1,5 @@
 # SquareFootCircles
-> Generate proportional radius values from a data set os square footage values
+> Generate proportional radius values from a data set of square footage values
 
 ## Table of contents
 * [General info](#general-info)
