@@ -85,7 +85,6 @@ public class Main{
     public static void main(String[] args){
 
         ArrayList<Building>Buidlings= new ArrayList<Building>();
-        int randSqFt=0;
        
         
         Buidlings.add(new Building(100));
