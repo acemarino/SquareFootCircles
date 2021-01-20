@@ -47,9 +47,6 @@ public class Main{
                 //for finding correct midNum
                 midNum=((j+((double)numSteps/2)));
                 
-            
-                System.out.println("New Rad: "+ newRadius);
-                System.out.println("mid Num "+ midNum);
                 if( newRadius >= midNum){
                     Data.get(i).setRadius(j+numSteps);
                 }
